@@ -6,7 +6,7 @@
 //
 //
 
-#import <WTracker/WPropertiesContainer.h>
+#import "WPropertiesContainer.h"
 #import <Foundation/Foundation.h>
 
 @interface WEvent : WPropertiesContainer

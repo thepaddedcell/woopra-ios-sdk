@@ -28,7 +28,7 @@ static WPinger* gPinger = nil;
 		// create dummy visitor object to track 'anonimous' events
 		gSingleton.visitor = [WVisitor anonymousVisitor];
 	}
-	
+
 	return gSingleton;
 }
 
@@ -36,10 +36,10 @@ static WPinger* gPinger = nil;
 {
 	self = [super init];
 	if (!self) return nil;
-	
+
 	// default timeout value for Woopra service
 	self.idleTimeout = 30.0;
-	
+
 	return self;
 }
 
@@ -48,7 +48,7 @@ static WPinger* gPinger = nil;
 	self.domain = nil;
 	self.visitor = nil;
 	self.referer = nil;
-	
+
 	[super dealloc];
 }
 
@@ -60,23 +60,23 @@ static WPinger* gPinger = nil;
 		NSLog(@"WTracker.domain property must be set before [WTracker trackEvent:] invocation. Ex.: tracker.domain = mywebsite.com");
 		return FALSE;
 	}
-	
+
 	if (nil == self.visitor)
 	{
 		NSLog(@"WTracker.visitor property must be set before [WTracker trackEvent:] invocation");
 		return FALSE;
 	}
-	
+
 	NSMutableString* parameters = [NSMutableString stringWithFormat:@"?app=ios&host=%@&cookie=%@&response=xml&timeout=%d",
 								   self.domain, self.visitor.cookie, (int)(self.idleTimeout * 1000)];
 	if (self.referer)
 		[parameters appendFormat:@"&referer=%@", self.referer];
-	
+
 	// Add visitors properties
 	NSDictionary* prop = self.visitor.properties;
 	for (NSString* k in prop)
 		[parameters appendFormat:@"&cv_%@=%@", k, [prop objectForKey:k]];
-	
+
 	// Add Event Properties
 	prop = event.properties;
     for (NSString* k in prop){
@@ -89,12 +89,12 @@ static WPinger* gPinger = nil;
             [parameters appendFormat:@"&ce_%@=%@", k, [prop objectForKey:k]];
         }
     }
-	
+
 	// submit asynchronous track request
 	NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:
 									[NSURL URLWithString: [[WEventEndpoint stringByAppendingString:parameters] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
 	[NSURLConnection connectionWithRequest:request delegate:self];
-	
+
 	return TRUE;
 }
 

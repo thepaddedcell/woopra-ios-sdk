@@ -6,8 +6,8 @@
 //
 //
 
-#import <WTracker/WVisitor.h>
-#import <WTracker/WEvent.h>
+#import "WVisitor.h"
+#import "WEvent.h"
 #import <Foundation/Foundation.h>
 
 @interface WTracker : NSObject
@@ -15,7 +15,7 @@
 // Identifies which project environment your sending this tracking request to.
 @property (nonatomic, copy) NSString* domain;
 
-// 
+//
 @property (nonatomic, retain) WVisitor* visitor;
 
 // In seconds, defaults to 30, after which the event will expire and the visitor will considered offline.

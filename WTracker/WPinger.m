@@ -34,13 +34,13 @@ static NSString* const WPingEndpoint = @"https://www.woopra.com/track/ping/";
 {
 	self = [super init];
 	if (!self) return nil;
-	
+
 	_tracker = aTracker;
-	
+
 	// observe WTracker values to start/stop ping timer
 	for (NSString* property in [self monitoredTrackerProperties])
 		[aTracker addObserver:self forKeyPath:property options:NSKeyValueObservingOptionNew context:NULL];
-	
+
 	[self startStopPingTimerAccordingToTrackerState];
 
 	return self;
@@ -52,7 +52,7 @@ static NSString* const WPingEndpoint = @"https://www.woopra.com/track/ping/";
 
 	for (NSString* property in [self monitoredTrackerProperties])
 		[self.tracker removeObserver:self forKeyPath:property];
-	
+
 	[super dealloc];
 }
 

@@ -19,9 +19,9 @@
 {
 	self = [super init];
 	if (!self) return nil;
-	
+
 	_properties = [[NSMutableDictionary alloc] init];
-	
+
 	return self;
 }
 

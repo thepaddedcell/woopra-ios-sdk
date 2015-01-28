@@ -20,7 +20,7 @@
 	const char *cData = [data cStringUsingEncoding:NSUTF8StringEncoding];
 	uint8_t digest[CC_MD5_DIGEST_LENGTH];
 	CCHmac(kCCHmacAlgMD5, cKey, strlen(cKey), cData, strlen(cData), digest);
-	
+
 	NSMutableString* output = [NSMutableString string];
 	for(int i = 0; i < sizeof(digest); i++)
 		[output appendFormat:@"%x", digest[i]];
@@ -32,7 +32,7 @@
 {
 	WVisitor* visitor = [[[WVisitor alloc] init] autorelease];
 	visitor.cookie = cookie;
-	
+
 	return visitor;
 }
 
@@ -41,7 +41,7 @@
 	WVisitor* visitor = [[[WVisitor alloc] init] autorelease];
 	visitor.cookie = [self hashFromString:address];
 	[visitor addProperty:@"email" value:address];
-	
+
 	return visitor;
 }
 
@@ -66,11 +66,11 @@
 		anonymousCookie = [NSString stringWithFormat:@"%x%x%x%x",
 						   *(uint32_t*)rawCookie, *((uint32_t*)rawCookie + 1),
 						   *((uint32_t*)rawCookie + 2), *((uint32_t*)rawCookie + 3)];
-		
+
 		[[NSUserDefaults standardUserDefaults] setObject:anonymousCookie forKey:@"woopra_cookie"];
 		[[NSUserDefaults standardUserDefaults] synchronize];
 	}
-	
+
 	return [self visitorWithCookie:anonymousCookie];
 }
 
